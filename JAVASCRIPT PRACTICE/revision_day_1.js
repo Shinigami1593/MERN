@@ -74,3 +74,18 @@ callBackSun(
         console.log(sum)
     }
 )
+
+const callbackCalculation = (a,b,cb) => {
+    let sum = a + b
+    let sub = a - b
+    let div = a / b
+    let mul = a * b
+    return cb(sum,sub,div,mul)
+}
+
+callbackCalculation(
+    //100,200
+    (sum,sub,div,mul) => {
+        console.log(sum,sub,div,mul)
+    }
+)
