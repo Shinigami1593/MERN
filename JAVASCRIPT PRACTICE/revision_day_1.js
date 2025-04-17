@@ -23,3 +23,14 @@ if(1 ==1 ){
     var newVar2 = 300 //global scoped
 }
 console.log(newVar2)
+
+//FUNCTION
+//normal function
+
+function myFunction(){
+    console.log("hello")
+}
+
+myFunction()
+
+//arrow function
