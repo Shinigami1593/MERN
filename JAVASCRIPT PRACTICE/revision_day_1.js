@@ -34,3 +34,32 @@ function myFunction(){
 myFunction()
 
 //arrow function
+const myArrowFunction = () =>{
+    console.log("This is arrow function")
+}
+myArrowFunction()
+
+const mySumArray = (num1,num2) => {
+    let sum = num1 + num2
+    return sum
+}
+let sumData = mySumArray(100,200)
+console.log(sumData)
+
+//arrow function returns if no scope is defined
+const retArrow = () => true
+console.log(retArrow)
+
+//callback function higher order function
+const callBackExample = (func) => {
+    console.log("executing logic")
+    func()
+}
+
+callBackExample(
+    () => {
+        console.log("Running callback function")
+    }
+)
+
+callBackExample()
