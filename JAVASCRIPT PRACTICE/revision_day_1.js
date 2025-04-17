@@ -11,7 +11,7 @@ let letVar = 20
 letVar = 30 //can mutate
 //let letVar =300 // cannot reassign
 
-if(i==1){
+if(1==1){
     let letVar2 = 300 //block scoped
 }
 // console.log(letVar2) cannot use outside of scope
@@ -89,3 +89,39 @@ callbackCalculation(
         console.log(sum,sub,div,mul)
     }
 )
+
+//array/loop/array callbacks
+
+const myArr = [1,2,3,40]
+//index based
+console.log(myArr[0])
+//add to an array
+myArr.push(90)
+//remove
+myArr.pop()
+//looping array
+for(data in myArr){
+    console.log(data) //0,1,...
+}
+for(data of myArr){
+    console.log(data) // 1,2,3,40
+}
+//array callbacks
+myArr.forEach((data) => {
+    console.log(data)
+})
+
+// array map
+const mapperArr = myArr.map((map) => {
+    return "this is " + map
+})
+
+console.log(mapperArr)
+
+const fruits =['orrange','mango','grapes']
+const mappedFruit = fruits.map(
+    (elem) => "<li>" + elem + "</li>"
+)
+console.log(mappedFruit)
+
+//object/has
