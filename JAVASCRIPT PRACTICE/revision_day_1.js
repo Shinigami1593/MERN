@@ -124,4 +124,14 @@ const mappedFruit = fruits.map(
 )
 console.log(mappedFruit)
 
-//object/has
+//object/hasmap
+const obj ={
+    name:"john",
+    age: 30,
+    address: "Dillibazar",
+    over18: true,
+    salary: 50000.22
+}
+//object is key/value pair
+console.log(obj.name)
+console.log(obj.salary)
