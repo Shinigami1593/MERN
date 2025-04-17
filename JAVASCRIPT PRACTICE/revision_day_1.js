@@ -63,3 +63,14 @@ callBackExample(
 )
 
 callBackExample()
+
+const callBackSun = (a,b,cb) => {
+    let sum = a + b
+    return cb(sum)
+}
+
+callBackSun(
+    (sum) => {
+        console.log(sum)
+    }
+)
