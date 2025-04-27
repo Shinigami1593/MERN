@@ -135,3 +135,5 @@ const obj ={
 //object is key/value pair
 console.log(obj.name)
 console.log(obj.salary)
+
+
