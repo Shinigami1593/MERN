@@ -65,6 +65,7 @@ exports.createUser = async(res,req) => {
     }
 }
 
+//2 Get all/ Read all
 exports.getUsers = async(req,res) => {
     try{
         const users = await User.find();
@@ -80,6 +81,64 @@ exports.getUsers = async(req,res) => {
             {
                 "success":false,
                 "message":"Server error"
+            }
+        )
+    }
+}
+
+// 3 Get one/ Read one
+exports.getOneUser = async(res,req) => {
+    try{
+        const id = req.params.id
+        const user = await User.findOne(
+            {
+                "_id":id
+            }
+        )
+        return res.status(200).json(
+            {
+                "success":true,
+                "message":"One user fetched",
+                "data": user
+            }
+        )
+    }catch(err){
+        return res.status(500).json(
+            {
+                "success":false,
+                "message":"server error"
+            }
+        )
+    }
+}
+
+// 4 Update One
+exports.UpdateOne = async(res,req) => {
+    const { firstName,lastName } = req.body
+    const _id = req.params.id //mongodb id
+    try{
+        const user = await User.updateOne(
+            {
+                "_id":id
+            },
+            {
+                $set:{
+                    "firstName":firstName,
+                    "lastName":lastName
+                }
+            }
+        )
+        return res.status(200).json(
+            {
+                "success":true,
+                "message": "User updated"
+            }
+        )
+    }catch(err){
+        return res.status(500).json(
+            {
+                "success":false,
+                "message": "Server error"
             }
         )
     }
