@@ -119,7 +119,7 @@ exports.UpdateOne = async(res,req) => {
     try{
         const user = await User.updateOne(
             {
-                "_id":id
+                "_id":_id
             },
             {
                 $set:{
@@ -139,6 +139,31 @@ exports.UpdateOne = async(res,req) => {
             {
                 "success":false,
                 "message": "Server error"
+            }
+        )
+    }
+}
+
+// 5 Delete One
+exports.deleteOne = async(res,req) => {
+    const _id = req.params.id
+    try{
+        const user = await User.deleteOne(
+            {
+                "_id":_id
+            }
+        )
+        return res.status(200).json(
+            {
+                "success":true,
+                "message": "User deleted"
+            }
+        )
+    }catch(err){
+        return res.status(200).json(
+            {
+                "success":false,
+                "message": "Sever error"
             }
         )
     }
