@@ -1,3 +1,5 @@
+require("dotenv").config()
+
 const express = require("express")
 const connectDB = require("./config/db")
 const userRoutes = require("./routes/userRoute")
@@ -211,9 +213,9 @@ app.delete("/blogs/:blogId",
         )
     }
 )
-
+const PORT = process.env.PORT
 app.listen(
-    5050,
+    PORT,
     () => {
         console.log("Server running")
     }
