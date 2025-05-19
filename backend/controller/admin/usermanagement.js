@@ -113,7 +113,7 @@ exports.getOneUser = async(res,req) => {
 }
 
 // 4 Update One
-exports.UpdateOne = async(res,req) => {
+exports.updateOne = async(res,req) => {
     const { firstName,lastName } = req.body
     const _id = req.params.id //mongodb id
     try{
