@@ -61,3 +61,47 @@ exports.registerUser = async (req,res) => {
         )
     }
 }
+exports.loginUser = async(req,res) => {
+    const { email,password } = req.body
+    //validation
+    if(!email || !password){
+        return res.status(400).json(
+            {
+                "success": false,
+                "message": "Missing Field"
+            }
+        )
+    }
+    try{
+        const getUsers = await User.findOne(
+            {
+                email:email
+            }
+        )
+        if (!getUsers){
+            return res.status(400).json(
+                {
+                    "success":false,
+                    "message": "User not found"
+                }
+            )
+        }
+        const passwordCheck = await bcrypt.compare(password,getUsers.password) //pass, hashed password
+        if(!passwordCheck){
+            return res.status(400).json(
+                {
+                    "success":false,
+                    "message":"invalid credentials"
+                }
+            )
+        }
+        //
+    }catch(err){
+        return res.status(500).json(
+            {
+                "success":false,
+                "message": "Server error"
+            }
+        )
+    }
+}
