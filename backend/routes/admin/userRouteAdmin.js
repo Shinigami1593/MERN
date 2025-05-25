@@ -3,7 +3,7 @@ const router = express.Router();
 const userManagementAdmin = require("../../controller/admin/usermanagement")
  
 // 5 common API
-router.post(
+router.post( 
     "/",
     userManagementAdmin.createUser
 )
@@ -15,12 +15,12 @@ router.get(
     "/:id",          // req.params.id---> dynamic routing
     userManagementAdmin.getOneUser
 )
-router.get(
+router.put(
     "/:id",          // req.params.id---> dynamic routing
     userManagementAdmin.updateOne
 )
 router.delete(
-    "/id",          // req.params.id---> dynamic routing
+    "/:id",          // req.params.id---> dynamic routing
     userManagementAdmin.deleteOne
 )
 module.exports = router;

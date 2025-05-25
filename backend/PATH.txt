@@ -1,1 +1,1 @@
-Model---->controller(business logic)----->
+Model---->controller(business logic)----->routing----->index.js

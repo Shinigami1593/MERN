@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt")
 //5common api
 //Create, Read ALl, Read one, Update one, Delete One
 
-exports.createUser = async(res,req) => {
+exports.createUser = async(req,res) => {
     const {username,email,firstName,lastName,password} = req.body
     
         //validation
@@ -87,7 +87,7 @@ exports.getUsers = async(req,res) => {
 }
 
 // 3 Get one/ Read one
-exports.getOneUser = async(res,req) => {
+exports.getOneUser = async(req,res) => {
     try{
         const id = req.params.id
         const user = await User.findOne(
@@ -113,7 +113,7 @@ exports.getOneUser = async(res,req) => {
 }
 
 // 4 Update One
-exports.updateOne = async(res,req) => {
+exports.updateOne = async(req,res) => {
     const { firstName,lastName } = req.body
     const _id = req.params.id //mongodb id
     try{
@@ -145,7 +145,7 @@ exports.updateOne = async(res,req) => {
 }
 
 // 5 Delete One
-exports.deleteOne = async(res,req) => {
+exports.deleteOne = async(req,res) => {
     const _id = req.params.id
     try{
         const user = await User.deleteOne(
