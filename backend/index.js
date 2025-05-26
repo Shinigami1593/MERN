@@ -5,6 +5,8 @@ const connectDB = require("./config/db")
 const userRoutes = require("./routes/userRoute")
 const stuRoutes = require("./routes/stuRouter")
 const adminUserRoutes = require("./routes/admin/userRouteAdmin")
+const categoryRoutes = require('./routes/admin/categoryRoute')
+const productRoutes = require('./routes/admin/productRoute')
 
 const app = express()
 
@@ -14,6 +16,8 @@ app.use(express.json()) // accept json in request
 connectDB()
 app.use("/api/auth",userRoutes)
 app.use("/api/students",stuRoutes)
+app.use("/api/admin/category", categoryRoutes)
+app.use("/api/admin/product", productRoutes)
 app.use("/api/admin/users",adminUserRoutes)//
 
 app.get("/", 
