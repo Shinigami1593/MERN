@@ -38,9 +38,24 @@ exports.createProduct = async(req,res) => {
     }
 }
 
-const getProducts = async(req,res) => {
+exports.getProducts = async(req,res) => {
     try{
-        const product = new Product.find().populate("categoryId", "name").populate("sellerId","firstName email")
+        const { page = 1, limit = 10, search = "" } = req.query
+
+        let filter = {}
+        if(search){
+            filter.$or = [
+                { name: { $regex:search, $options:'i' } }
+            ]
+        }
+        const skip = (page -1) * limit
+
+
+        const product = new Product.find()
+            .populate("categoryId", "name")
+            .populate("sellerId","firstName email")
+            .skip(skip)
+            .limit(Number(limit))
         //populate ("key", "projection fields")
         return res.status(200).json(
             {
@@ -53,7 +68,16 @@ const getProducts = async(req,res) => {
         return res.status(500).json(
             {
                 "success":false,
-                "message":"Server error"
+                "message":"Server error",
+                data: product,
+                pagination: {
+                    total,
+                    page: Number(page),
+                    limit: Number(limit),
+                    totalPages: Math.ceil(
+                        total/limit
+                    ) //ceil rounds number
+                }   
             }
         )      
     }
