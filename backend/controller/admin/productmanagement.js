@@ -1,17 +1,14 @@
 const Product = require("../../models/Product")
 
-exports.createProduct = async(req,res) => {
-    const { name,price,categoryId,userId } = req.body;
-    //vallidation
-    if(!name || !price || !categoryId ||!userId){
+exports.createProduct = async (req, res) => {
+    const { name, price, categoryId, userId } = req.body
+    // validataion
+    if (!name || !price || !categoryId || !userId) {
         return res.status(403).json(
-            {
-                "success":false,
-                "message": "Missing field"
-            }
+            { success: false, message: "Missing field" }
         )
     }
-    try{
+    try {
         const product = new Product(
             {
                 name,
@@ -23,62 +20,63 @@ exports.createProduct = async(req,res) => {
         await product.save()
         return res.status(200).json(
             {
-                success:true,
+                success: true,
                 data: product,
                 message: 'Product saved'
             }
         )
-    }catch(err){
+    } catch (err) {
         return res.status(500).json(
             {
-                "success":false,
-                "message":"Server error"
+                success: false,
+                message: 'Server error'
             }
         )
     }
 }
 
-exports.getProducts = async(req,res) => {
-    try{
-        const { page = 1, limit = 10, search = "" } = req.query
+exports.getProducts = async (req, res) => {
+    try {
+        const { page = 1, limit = 10, search = "" } = 
+            req.query
 
         let filter = {}
-        if(search){
+        if (search) {
             filter.$or = [
-                { name: { $regex:search, $options:'i' } }
+                { name: 
+                    { 
+                        $regex: search, 
+                        $options: 'i' 
+                    } 
+                }
             ]
         }
-        const skip = (page -1) * limit
+        const skip = (page - 1) * limit
 
-
-        const product = new Product.find()
+        const products = await Product.find(filter)
             .populate("categoryId", "name")
-            .populate("sellerId","firstName email")
+            .populate("sellerId", "firstName email")
             .skip(skip)
             .limit(Number(limit))
-        //populate ("key", "projection fields")
+        const total = await Product.countDocuments(filter)
         return res.status(200).json(
             {
-                success:true,
+                success: true,
                 message: "Product fetched",
-                data: product
-            }
-        )
-    }catch(err){
-        return res.status(500).json(
-            {
-                "success":false,
-                "message":"Server error",
-                data: product,
+                data: products,
                 pagination: {
                     total,
                     page: Number(page),
                     limit: Number(limit),
                     totalPages: Math.ceil(
-                        total/limit
-                    ) //ceil rounds number
-                }   
+                        total / limit
+                    ) // ceil rounds number
+                }
             }
-        )      
+        )
+    } catch (err) {
+        return res.status(500).json(
+            { success: false, message: "Server error" }
+        )
     }
 }
