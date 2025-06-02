@@ -1,9 +1,9 @@
 const express = require("express")
 const router = express.Router();
-
+const upload = require("../../middleware/fileupload")
 const categoryController = require("../../controller/admin/categoryController")
 
-router.post("/",categoryController.createCategory)
+router.post("/", upload.single("image"), categoryController.createCategory)
 
 router.get("/",categoryController.getCategory)
 

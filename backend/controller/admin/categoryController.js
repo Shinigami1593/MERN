@@ -1,29 +1,18 @@
 const Category = require("../../models/Category")
 
 exports.createCategory = async(req,res) => {
-    const {name} = req.body
-
-    if(!name){
-        return res.status(400).json(
-            {
-                "success":false,
-                "message":"Missing fields"
-            }
-        )
-    }
-    const newCategory = new Category(
-        {
-            name
-        }
-    )
-
-    await newCategory.save()
-    return res.status(201).json(
-        {
-            "success":true,
-            "message":"Category saved"
-        }
-    )
+    try {
+        const filename = req.file?.path
+        const category = new Category({ name: req.body.name, filepath: filename });
+        await category.save();
+        return res.status(201).json({
+            success: true,
+            message: "Created",
+            data: category
+        });
+    } catch (err) {
+        return res.status(500).json({ success: false, message: "Server Error" });
+    }   
 }
 
 exports.getCategory = async(req,res) => {

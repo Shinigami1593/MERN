@@ -7,11 +7,12 @@ const stuRoutes = require("./routes/stuRouter")
 const adminUserRoutes = require("./routes/admin/userRouteAdmin")
 const categoryRoutes = require('./routes/admin/categoryRoute')
 const productRoutes = require('./routes/admin/productRoute')
+const path = require("path")
 
 const app = express()
 
 app.use(express.json()) // accept json in request
-
+app.use("/uploads", express.static(path.join(__dirname,"uploads")))
 
 connectDB()
 app.use("/api/auth",userRoutes)
@@ -23,7 +24,7 @@ app.use("/api/admin/users",adminUserRoutes)//
 app.get("/", 
     (req, res) => {
         // logic
-        return res.status(200).send("Hell!!o world 2000")
+        return res.status(200).send("Hello!! world 2000")
     }
 )
 

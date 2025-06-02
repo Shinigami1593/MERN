@@ -6,6 +6,9 @@ const CategorySchema = new mongoose.Schema(
             type:String,
             required:false,
             unique: true
+        },
+        filepath:{
+            type:String,
         }
     }
 )
